@@ -1,12 +1,15 @@
 import express from 'express'
 import mongoose from 'mongoose'
-import router from './routes'
 import 'dotenv/config'
+
+import ProductRoutes from './routes/ProductRoutes'
+import CategoryRoutes from './routes/CategoryRoutes'
 
 const app = express()
 
 app.use(express.json())
-app.use(router)
+app.use('/products', ProductRoutes)
+app.use('/categories', CategoryRoutes)
 
 const { DATABASE_USERNAME, DATABASE_PASSWORD } = process.env
 
