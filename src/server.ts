@@ -1,8 +1,12 @@
-import express, { Request, Response } from 'express'
+import express from 'express'
 import mongoose from 'mongoose'
-require('dotenv/config')
+import router from './routes'
+import 'dotenv/config'
 
 const app = express()
+
+app.use(express.json())
+app.use(router)
 
 const { DATABASE_USERNAME, DATABASE_PASSWORD } = process.env
 
@@ -16,10 +20,6 @@ mongoose
   .catch((err) => {
     console.info('Database connection failed: ', err)
   })
-
-app.get('/', (req: Request, res: Response) => {
-  return res.send('Hello API!')
-})
 
 app.listen(3333, () => {
   console.info('API started!')
