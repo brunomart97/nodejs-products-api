@@ -83,12 +83,13 @@ const ProductController = {
         return res.status(400).json({ message: 'Slug is required!' })
       }
 
-      const product = await ProductModel.create(req.body)
       const category = await CategoryModel.findOne({ name: categoryName })
 
       if (!category) {
         return res.status(400).json({ message: 'Category not found!' })
       }
+
+      const product = await ProductModel.create(req.body)
 
       res.status(200)
       return res.json({
@@ -106,7 +107,16 @@ const ProductController = {
   // Update product
   async update(req: Request, res: Response): Promise<Response> {
     try {
-      const { name, brand, stars, imageUrl, price, slug, quantity } = req.body
+      const {
+        name,
+        brand,
+        categoryName,
+        stars,
+        imageUrl,
+        price,
+        slug,
+        quantity
+      } = req.body
       const { id } = req.params
 
       if (!name) {
@@ -115,6 +125,10 @@ const ProductController = {
 
       if (!brand) {
         return res.status(400).json({ message: 'Brand is required!' })
+      }
+
+      if (!categoryName) {
+        return res.status(400).json({ message: 'Category is required!' })
       }
 
       if (!stars) {
@@ -135,6 +149,12 @@ const ProductController = {
 
       if (!quantity) {
         return res.status(400).json({ message: 'Slug is required!' })
+      }
+
+      const category = await CategoryModel.findOne({ name: categoryName })
+
+      if (!category) {
+        return res.status(400).json({ message: 'Category not found!' })
       }
 
       await ProductModel.findByIdAndUpdate(id, req.body)
