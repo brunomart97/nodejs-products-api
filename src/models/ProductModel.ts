@@ -5,7 +5,7 @@ const ProductModel = new Schema(
     name: String,
     brand: String,
     stars: Number,
-    imageUrl: String,
+    imageUrl: [String],
     price: {
       listPrice: Number,
       sellingPrice: Number
