@@ -17,7 +17,7 @@ mongoose
   .connect(
     `mongodb+srv://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@nodejs-products-api.cp4grgl.mongodb.net/?retryWrites=true&w=majority`
   )
-  .then((data) => {
+  .then(() => {
     console.info('The connection to the database was successful!')
   })
   .catch((err) => {
